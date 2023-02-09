@@ -1,6 +1,7 @@
 # Shell Basics
 
 - Current working directory
+
   Use this to print the absolute path name of the current working directory.  
 
   ```bash
