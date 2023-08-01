@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# loops from 1 to 10 and displays
+
+tracker=1
+while [ "$tracker" -le 10 ]; do
+    if [ $tracker -eq 4 ]; then
+	echo "bad luck"
+    elif [ $tracker -eq 8 ]; then
+	echo "good luck"
+    else
+	echo "Holberton School"
+    fi
+    ((tracker++))
+done
