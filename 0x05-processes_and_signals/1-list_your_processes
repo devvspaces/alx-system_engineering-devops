@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# list my processes
+
+ps u -A -H

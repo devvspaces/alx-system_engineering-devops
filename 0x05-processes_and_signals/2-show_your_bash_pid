@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Show your Bash PID made easy
+
+ps axuf | grep "bash"
