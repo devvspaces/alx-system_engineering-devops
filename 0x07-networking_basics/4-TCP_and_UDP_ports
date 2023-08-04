@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Program that displays the sockets of a machine
+
+netstat -lp
