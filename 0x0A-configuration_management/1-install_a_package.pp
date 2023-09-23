@@ -1,5 +1,6 @@
 exec { 'apt-get update':
-  command => '/usr/bin/apt-get update'
+  command => 'apt-get update',
+  path    => ['/usr/bin', '/usr/sbin', '/bin']
 }
 
 package { 'python3-pip':
@@ -8,6 +9,7 @@ package { 'python3-pip':
 }
 
 exec { 'flask':
-  command => '/usr/bin/pip3 install flask',
-  require => Package['python3-pip']
+  command => 'pip3 install flask',
+  require => Package['python3-pip'],
+  path    => ['/usr/bin', '/usr/sbin', '/bin']
 }
