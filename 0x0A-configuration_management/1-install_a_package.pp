@@ -1,3 +1,5 @@
+# this installs flask
+
 exec { 'apt-get update':
   command => 'apt-get update',
   path    => ['/usr/bin', '/usr/sbin', '/bin']

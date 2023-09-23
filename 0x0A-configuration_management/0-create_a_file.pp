@@ -1,3 +1,5 @@
+# Create a file with the content "I love Puppet" and the permissions 0744
+
 file { 'create a file':
   ensure  => 'present',
   path    => '/tmp/school',
