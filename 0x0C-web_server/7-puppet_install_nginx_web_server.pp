@@ -39,6 +39,8 @@ $nginx_conf = 'server {
   location / {
     try_files $uri $uri/ =404;
   }
+
+  error_page 404 /404.html;
 }'
 
 file { 'nginx.conf':
