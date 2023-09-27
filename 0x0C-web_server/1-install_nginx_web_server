@@ -1,15 +1,8 @@
 #!/usr/bin/env bash
 # Setup Nginx web server
 
-if ! which nginx; then
-    echo "Installing Nginx";
-    apt-get update
-    apt-get install nginx -y
-fi
-
-echo "Configuring website";
+apt-get update
+apt-get install nginx -y
 INDEX="Hello World!";
 echo "$INDEX" > /var/www/html/index.html;
-
-echo "Restarting nginx";
 service nginx restart;
