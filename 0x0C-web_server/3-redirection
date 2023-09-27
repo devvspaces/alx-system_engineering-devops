@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Setup nginx server to redirect
+
+apt-get update
+apt-get install nginx -y
+INDEX="Hello World!";
+echo "$INDEX" > /var/www/html/index.html;
+
+sed -i '36a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default;
+service nginx restart;
