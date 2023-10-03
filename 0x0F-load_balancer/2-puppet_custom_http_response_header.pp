@@ -59,7 +59,7 @@ file { 'Nginx default config file':
     }
 
     error_page 404 /404.html;
-    
+
     location  /404.html {
         internal;
     }
@@ -75,7 +75,7 @@ file { 'Nginx default config file':
 
 exec { 'restart service':
   command => 'service nginx restart',
-  path    => '/usr/bin:/usr/sbin:/bin',
+  path    => ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin'],
 }
 
 service { 'nginx':
