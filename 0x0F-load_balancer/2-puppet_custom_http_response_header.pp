@@ -1,3 +1,5 @@
+# Configure Nginx to serve a static page
+
 exec { 'add nginx stable repo':
   command => 'sudo add-apt-repository ppa:nginx/stable',
   path    => ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin']
