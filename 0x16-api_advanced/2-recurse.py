@@ -16,26 +16,40 @@ headers = {
 }
 
 
-def recurse(subreddit, hot_list=[], after=None):
-    """returns a list of all hot post titles for a given subreddit"""
-    if subreddit is None or type(subreddit) is not str:
-        return None
-    r = requests.get(
-        get_url(subreddit),
-        headers=headers,
-        params={'after': after}).json()
-    after = r.get('data', {}).get('after', None)
-    posts = r.get('data', {}).get('children', None)
-    if posts is None or (len(posts) > 0 and posts[0].get('kind') != 't3'):
-        if len(hot_list) == 0:
-            return None
-        return hot_list
-    else:
-        for post in posts:
-            hot_list.append(post.get('data', {}).get('title', None))
+def recurse(subreddit, hot_list=[], after=""):
+    """
+    Returns a list containing the titles
+    of all hot articles for a given subreddit.
+    """
     if after is None:
-        if len(hot_list) == 0:
-            return None
         return hot_list
-    else:
-        return recurse(subreddit, hot_list, after)
+
+    url = get_url(subreddit)
+
+    params = {
+        'limit': 100,
+        'after': after
+    }
+
+    r = requests.get(url, headers=headers, params=params,
+                     allow_redirects=False)
+
+    if r.status_code != 200:
+        return None
+
+    try:
+        js = r.json()
+    except ValueError:
+        return None
+
+    try:
+        data = js.get("data")
+        after = data.get("after")
+        children = data.get("children")
+        for child in children:
+            post = child.get("data")
+            hot_list.append(post.get("title"))
+    except Exception:
+        return None
+
+    return recurse(subreddit, hot_list, after)
