@@ -1,9 +1,18 @@
 #!/usr/bin/python3
-""" Count it! """
-from requests import get
+"""
+Count the number of times a keyword appears in the titles of hot posts
+"""
 
-REDDIT = "https://www.reddit.com/"
-HEADERS = {'user-agent': 'my-app/0.0.1'}
+import requests
+
+
+def get_url(subreddit):
+    '''returns the url for a given subreddit'''
+    return 'http://www.reddit.com/r/{}/hot.json'.format(subreddit)
+
+
+headers = {
+    'user-agent': 'Python/requests:APIproject:v1.0.0 (by /u/aaorrico23)'}
 
 
 def count_words(subreddit, word_list, after="", word_dic={}):
@@ -24,26 +33,25 @@ def count_words(subreddit, word_list, after="", word_dic={}):
                 print("{}: {}".format(w[0].lower(), w[1]))
         return None
 
-    url = REDDIT + "r/{}/hot/.json".format(subreddit)
+    url = get_url(subreddit)
 
     params = {
         'limit': 100,
         'after': after
     }
 
-    r = get(url, headers=HEADERS, params=params, allow_redirects=False)
+    r = requests.get(url, headers=headers, params=params,
+                     allow_redirects=False)
 
     if r.status_code != 200:
         return None
 
     try:
         js = r.json()
-
     except ValueError:
         return None
 
     try:
-
         data = js.get("data")
         after = data.get("after")
         children = data.get("children")
@@ -54,8 +62,7 @@ def count_words(subreddit, word_list, after="", word_dic={}):
 
             for w in word_list:
                 word_dic[w] += lower.count(w.lower())
-
-    except:
+    except Exception:
         return None
 
     count_words(subreddit, word_list, after, word_dic)
