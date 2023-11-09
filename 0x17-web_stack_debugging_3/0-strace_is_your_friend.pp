@@ -1,6 +1,6 @@
 # Fix bad php path in wordpress
 
-exec { 'fix-wordpress':
+exec { 'fix_php_path':
   command => 'sed -i s/phpp/php/g /var/www/html/wp-settings.php',
   path    => ['/usr/local/bin/', '/bin/']
 }
